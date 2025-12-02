@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LF MOTOREPUESTOS</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #0066cc 0%, #004d99 100%);
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .top-bar {
+            background: #004080;
+            padding: 10px 0;
+            text-align: right;
+        }
+
+        .top-bar-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            color: white;
+            font-size: 14px;
+        }
+
+        .top-bar-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: white;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        /* Navigation */
+        nav {
+            background: #0052a3;
+            padding: 0;
+        }
+
+        .nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            padding: 0 20px;
+        }
+
+        .nav-item-container {
+            position: relative;
+        }
+
+        .nav-item {
+            color: white;
+            text-decoration: none;
+            padding: 15px 30px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            transition: background 0.3s;
+            cursor: pointer;
+        }
+
+        .nav-item:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .social-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            min-width: 200px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            border-radius: 8px;
+            overflow: hidden;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .social-dropdown.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 20px;
+            color: #333;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .social-link:hover {
+            background: #f0f0f0;
+        }
+
+        .social-icon {
+            font-size: 24px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #00a8e8 0%, #0077b6 100%);
+            padding: 80px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-text {
+            flex: 1;
+            color: white;
+        }
+
+        .hero-text h1 {
+            font-size: 56px;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .hero-text .highlight {
+            color: #ffd700;
+        }
+
+        .hero-text p {
+            font-size: 20px;
+            margin-top: 10px;
+            line-height: 1.6;
+        }
+
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .product-display {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            perspective: 1000px;
+        }
+
+        .product-item {
+            background: rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            transition: transform 0.3s;
+        }
+
+        .product-item:hover {
+            transform: translateY(-10px);
+        }
+
+        .product-name {
+            font-size: 20px;
+            font-weight: bold;
+            color: white;
+            text-align: center;
+        }
+
+        /* Decorative elements */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 50%;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -5%;
+            width: 400px;
+            height: 400px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 50%;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .hero-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .product-display {
+                grid-template-columns: repeat(1, 1fr);
+                margin-top: 40px;
+            }
+
+            .hero-text h1 {
+                font-size: 40px;
+            }
+
+            .nav-content {
+                flex-wrap: wrap;
+            }
+        }
+
+        /* Products Section */
+        .products-section {
+            background: #f5f5f5;
+            padding: 60px 20px;
+        }
+
+        .products-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: bold;
+            z-index: 10;
+            box-shadow: 0 2px 8px rgba(238, 90, 111, 0.4);
+        }
+
+        .product-badge.exclusive::after {
+            content: '⭐';
+            margin-left: 5px;
+        }
+
+        .product-image {
+            height: 250px;
+            background: #f9f9f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 1px solid #eee;
+        }
+
+        .product-placeholder {
+            font-size: 80px;
+            opacity: 0.6;
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-brand {
+            display: inline-block;
+            background: #0066cc;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .product-title {
+            font-size: 16px;
+            color: #333;
+            margin: 10px 0;
+            min-height: 45px;
+            line-height: 1.4;
+        }
+
+        .product-pricing {
+            margin: 15px 0;
+        }
+
+        .discount-badge {
+            display: inline-block;
+            background: #00c851;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .original-price {
+            display: block;
+            color: #999;
+            text-decoration: line-through;
+            font-size: 13px;
+            margin: 5px 0;
+        }
+
+        .current-price {
+            display: block;
+            color: #0066cc;
+            font-size: 24px;
+            font-weight: bold;
+            margin: 5px 0;
+        }
+
+        .quantity-selector {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            margin-top: 10px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .buy-button {
+            width: 100%;
+            background: #00d4ff;
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 15px;
+        }
+
+        .buy-button:hover {
+            background: #00b8e6;
+        }
+
+        @media (max-width: 768px) {
+            .products-container {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const hogarBtn = document.getElementById('hogarBtn');
+            const socialDropdown = document.getElementById('socialDropdown');
+
+            hogarBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                socialDropdown.classList.toggle('active');
+            });
+
+            // Cerrar el menú si se hace clic fuera de él
+            document.addEventListener('click', function(e) {
+                if (!hogarBtn.contains(e.target) && !socialDropdown.contains(e.target)) {
+                    socialDropdown.classList.remove('active');
+                }
+            });
+        });
+
+        // Función para enviar mensaje a WhatsApp
+        function sendWhatsApp(productName, price) {
+            const phoneNumber = '595991998434'; // Número de WhatsApp
+            const message = `Hola! Estoy interesado en comprar: ${productName} - ${price}`;
+            const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
+        }
+    </script>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="top-bar-content">
+            <div class="top-bar-item">
+                📍 San Roque González de Santa Cruz de Paraguarí
+            </div>
+            <div class="top-bar-item">
+                📞 0991 998 434
+            </div>
+            <div class="top-bar-item">
+                🚚 Envíos a todo Paraguay
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 100 100" width="50" height="50">
+                        <!-- Motorcycle silhouette -->
+                        <path d="M85,60 Q90,55 85,50 L75,48 L70,40 L60,38 L55,45 L50,43 L45,50 L35,52 Q30,57 35,62 Q40,67 45,62 L50,60 L55,65 L60,67 Q65,72 70,67 Q75,62 70,57 L65,55 L60,50 L65,48 L70,55 L75,57 L80,60 Q85,65 85,60 Z M45,60 Q40,60 40,55 Q40,50 45,50 Q50,50 50,55 Q50,60 45,60 Z M70,65 Q65,65 65,60 Q65,55 70,55 Q75,55 75,60 Q75,65 70,65 Z" 
+                              fill="#003d7a" stroke="#00a8e8" stroke-width="2"/>
+                    </svg>
+                </div>
+                <span>CENTRO DE REPUESTO LF</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-content">
+            <div class="nav-item-container">
+                <a href="#" class="nav-item" id="hogarBtn">REDES</a>
+                <div class="social-dropdown" id="socialDropdown">
+                    <a href="https://www.tiktok.com/@centro_de_repuestos.lf" target="_blank" class="social-link">
+                        <span class="social-icon">📱</span> @centro_de_repuestos.lf
+                    </a>
+                    <a href="https://www.instagram.com/centro_de_repuestos.lf" target="_blank" class="social-link">
+                        <span class="social-icon">📷</span> @centro_de_repuestos.lf
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>
+                    Centro de<br>
+                    <span class="highlight">Repuesto LF</span>
+                </h1>
+                <p>✨ Venta de accesorios</p>
+                <p>🔧 Mantenimiento para moto y repuesto</p>
+                <p>🇵🇾 Minorista - Envíos a todo Paraguay</p>
+            </div>
+            <div class="hero-image">
+                <div class="product-display">
+                    <div class="product-item">
+                        <div class="product-name">Accesorios</div>
+                    </div>
+                    <div class="product-item">
+                        <div class="product-name">Neumáticos</div>
+                    </div>
+                    <div class="product-item">
+                        <div class="product-name">Repuestos</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products-section">
+        <div class="products-container">
+            <!-- Product 1 -->
+            <div class="product-card">
+                <div class="product-badge exclusive">PRECIO EXCLUSIVO ONLINE</div>
+                <div class="product-image">
+                    <div class="product-placeholder">🔩</div>
+                </div>
+                <div class="product-info">
+                    <span class="product-brand">TVS</span>
+                    <h3 class="product-title">RULEMAN ENGRENEJA ARRANQUE</h3>
+                    <div class="product-pricing">
+                        <span class="discount-badge">HASTA 15% OFF</span>
+                        <span class="original-price">PYG 35.600</span>
+                        <span class="current-price">PYG 30.260</span>
+                    </div>
+                    <button class="buy-button" onclick="sendWhatsApp('RULEMAN ENGRENEJA ARRANQUE', 'PYG 30.260')">COMPRAR</button>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="product-card">
+                <div class="product-badge exclusive">PRECIO EXCLUSIVO ONLINE</div>
+                <div class="product-image">
+                    <div class="product-placeholder">⚙️</div>
+                </div>
+                <div class="product-info">
+                    <span class="product-brand">TVS</span>
+                    <h3 class="product-title">EJE 12*255</h3>
+                    <div class="product-pricing">
+                        <span class="discount-badge">HASTA 15% OFF</span>
+                        <span class="original-price">PYG 29.300</span>
+                        <span class="current-price">PYG 24.905</span>
+                    </div>
+                    <button class="buy-button" onclick="sendWhatsApp('EJE 12*255', 'PYG 24.905')">COMPRAR</button>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="product-card">
+                <div class="product-badge exclusive">PRECIO EXCLUSIVO ONLINE</div>
+                <div class="product-image">
+                    <div class="product-placeholder">💡</div>
+                </div>
+                <div class="product-info">
+                    <span class="product-brand">SHAD</span>
+                    <h3 class="product-title">LUZ SH40/45/46/47 UNITARIO</h3>
+                    <div class="product-pricing">
+                        <span class="discount-badge">HASTA 15% OFF</span>
+                        <span class="original-price">PYG 277.200</span>
+                        <span class="current-price">PYG 235.620</span>
+                        <select class="quantity-selector">
+                            <option>2 x PYG 138.600</option>
+                            <option>1 x PYG 235.620</option>
+                            <option>3 x PYG 207.900</option>
+                        </select>
+                    </div>
+                    <button class="buy-button" onclick="sendWhatsApp('LUZ SH40/45/46/47 UNITARIO', 'PYG 235.620')">COMPRAR</button>
+                </div>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="product-card">
+                <div class="product-badge exclusive">PRECIO EXCLUSIVO ONLINE</div>
+                <div class="product-image">
+                    <div class="product-placeholder">📄</div>
+                </div>
+                <div class="product-info">
+                    <span class="product-brand">TVS</span>
+                    <h3 class="product-title">JUNTA CILINDRO</h3>
+                    <div class="product-pricing">
+                        <span class="discount-badge">HASTA 15% OFF</span>
+                        <span class="original-price">PYG 8.000</span>
+                        <span class="current-price">PYG 6.800</span>
+                    </div>
+                    <button class="buy-button" onclick="sendWhatsApp('JUNTA CILINDRO', 'PYG 6.800')">COMPRAR</button>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
